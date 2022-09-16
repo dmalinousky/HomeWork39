@@ -1,0 +1,4 @@
+public enum Goal {
+    GET_MONEY_FROM_ACCOUNT,
+    REPLENISH_ACCOUNT
+}
