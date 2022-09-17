@@ -1,6 +1,3 @@
-import java.io.BufferedReader;
-import java.io.InputStreamReader;
-
 public class Client {
     private String name;
     private Double sumOnTheAccount;
@@ -44,17 +41,11 @@ public class Client {
         return queuePosition;
     }
 
-    public void setQueuePosition(Integer queuePosition) {
-        this.queuePosition = queuePosition;
-    }
+    public void setQueuePosition(Integer queuePosition) { this.queuePosition = queuePosition; }
 
-    public Goal getVisitGoal() {
-        return visitGoal;
-    }
+    public Goal getVisitGoal() { return visitGoal; }
 
-    public void setVisitGoal(Goal visitGoal) {
-        this.visitGoal = visitGoal;
-    }
+    public void setVisitGoal(Goal visitGoal) { this.visitGoal = visitGoal; }
 
     @Override
     public String toString() {
@@ -67,22 +58,34 @@ public class Client {
                 '}';
     }
 
-    public void getTheSum() throws Exception {
-//        BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
-//        System.out.println("Enter the sum:");
+    public void getTheSum(Double commission) {
         Double sumToGet = 500d;
-        if (this.getSumOnTheAccount() >= sumToGet && this.getSumOnTheAccount() != null
-                && this.getSumOnTheAccount() != 0 && sumToGet != null && sumToGet != 0) {
-            this.setSumOnTheAccount(this.getSumOnTheAccount() - sumToGet);
+        if (this.getSumOnTheAccount() != null && this.getSumOnTheAccount() > 0
+                && sumToGet != null && sumToGet > 0 && this.getSumOnTheAccount() >= sumToGet) {
+            this.setSumOnTheAccount(this.getSumOnTheAccount() - (sumToGet + commission));
             this.setSumInThePocket(this.getSumInThePocket() + sumToGet);
         }
     }
 
-    public void fillTheAccount() {
-        if (this.getSumOnTheAccount() != null && this.getSumInThePocket() != null && this.getSumInThePocket() != 0) {
-            this.setSumOnTheAccount(this.getSumOnTheAccount() + this.getSumInThePocket());
+    public void fillTheAccount(Double commission) {
+        if (this.getSumOnTheAccount() != null && this.getSumInThePocket() != null && this.getSumInThePocket() > 0) {
+            this.setSumOnTheAccount(this.getSumOnTheAccount() + this.getSumInThePocket() - commission);
         }
     }
 
+    public void transferTheSum(Double commission) {
+        Double sumToTransfer = 1000d;
+        if (this.getSumOnTheAccount() != null && this.getSumOnTheAccount() > 0
+                && sumToTransfer != null && sumToTransfer > 0 && this.getSumOnTheAccount() >= sumToTransfer) {
+            this.setSumOnTheAccount(this.getSumOnTheAccount() - (sumToTransfer + commission));
+        }
+    }
+
+    public void exchangeTheSum(Double commission) {
+        Double rate = 2.5;
+        if (this.getSumInThePocket() != null && this.getSumInThePocket() > 0) {
+            this.setSumInThePocket(this.getSumInThePocket() / rate - commission);
+        }
+    }
 
 }
