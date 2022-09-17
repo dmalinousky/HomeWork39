@@ -11,8 +11,10 @@ public class HW39MainClass {
         Client client4 = new Client("Client 4", 4500d, 4000d, 5, Goal.EXCHANGE_MONEY);
         Client client5 = new Client("Client 5", 5000d, 6000d, 3, Goal.GET_MONEY_FROM_ACCOUNT);
 
+        // Queue comparator
         Comparator<Client> clientComparator = (o1, o2) -> o1.getQueuePosition() - o2.getQueuePosition();
 
+        // Client queue
         Queue<Client> clients = new PriorityQueue<>(clientComparator);
         clients.add(client1);
         clients.add(client2);
@@ -29,8 +31,10 @@ public class HW39MainClass {
         cashiers.add(cashier1);
         cashiers.add(cashier2);
         cashiers.add(cashier3);
+        // Cashier executor
         ExecutorService cashierExecutor = Executors.newFixedThreadPool(3);
 
+        // Supervisor (creation + executor)
         Supervisor supervisor = new Supervisor(0d, cashiers);
         ExecutorService supervisorExecutor = Executors.newSingleThreadExecutor();
         supervisor.setTotalSum(10000d);
@@ -42,6 +46,7 @@ public class HW39MainClass {
             supervisorExecutor.submit(supervisor);
         }
 
+        // When queue is empty - shutting down
         cashierExecutor.shutdown();
         supervisorExecutor.shutdown();
     }

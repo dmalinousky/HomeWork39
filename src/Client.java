@@ -87,5 +87,4 @@ public class Client {
             this.setSumInThePocket(this.getSumInThePocket() / rate - commission);
         }
     }
-
 }
